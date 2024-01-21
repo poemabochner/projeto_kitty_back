@@ -19,14 +19,14 @@ import com.kitty.projeto_kitty_back.domain.model.Ingrediente;
 import com.kitty.projeto_kitty_back.domain.service.IngredienteService;
 
 @RestController
-@RequestMapping("/api/ingredientes")
+@RequestMapping("/api/ingrediente")
 @CrossOrigin
 
 public class IngredienteController {
-  @Autowired
-  private IngredienteService ingredienteService;
+    @Autowired
+    private IngredienteService ingredienteService;
 
-  @GetMapping
+    @GetMapping
     public List<Ingrediente> obterTodosIngredientes() {
         return ingredienteService.obterTodos();
     }
@@ -38,13 +38,14 @@ public class IngredienteController {
     }
 
     @PostMapping
-    public ResponseEntity<Ingrediente> criaIngrediente(@RequestBody Ingrediente ingrediente) {
-        Ingrediente ingredienteCriado = ingredienteService.criaIngrediente(ingrediente);
-        return ResponseEntity.status(HttpStatus.CREATED).body(ingredienteCriado);
+    public ResponseEntity<Ingrediente> cadastraIngrediente(@RequestBody Ingrediente ingrediente) {
+        Ingrediente ingredienteCadastrado = ingredienteService.cadastraIngrediente(ingrediente);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ingredienteCadastrado);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Ingrediente> atualizaIngrediente(@PathVariable Long id, @RequestBody Ingrediente ingrediente) {
+    public ResponseEntity<Ingrediente> atualizaIngrediente(@PathVariable Long id,
+            @RequestBody Ingrediente ingrediente) {
         Ingrediente ingredienteEditado = ingredienteService.atualizaIngrediente(id, ingrediente);
         return ResponseEntity.ok(ingredienteEditado);
     }
