@@ -9,7 +9,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kitty.projeto_kitty_back.domain.model.Ingrediente;
 import com.kitty.projeto_kitty_back.domain.model.Lanche;
 import com.kitty.projeto_kitty_back.domain.model.Promocao;
 import com.kitty.projeto_kitty_back.domain.repository.PromocaoRepository;
@@ -72,8 +71,45 @@ public class PromocaoService {
   }
 
   public Promocao atualizaPromocao(Long id, Promocao promocao) {
+    BigDecimal precoPromocao = BigDecimal.ZERO;
+    List<Lanche> lanchesPromocao = new ArrayList<>();
 
     Promocao promocaoEncontrada = buscaPorId(id);
+
+    if (!promocaoEncontrada.getNomePromocao().equals(promocao.getNomePromocao()) &&
+        promocaoRepository.existsByNomePromocao(promocao.getNomePromocao())) {
+      throw new PromocaoException("Já existe uma promoção com o nome: " + promocao.getNomePromocao());
+    }
+
+    for (Lanche lanche : promocao.getLanches()) {
+      lanchesPromocao.add(lancheService.buscaPorId(lanche.getIdLanche()));
+    }
+
+    promocao.setLanches(lanchesPromocao);
+
+    if (promocao.getPrecoPromocao() == null) {
+      for (Lanche lanche : promocao.getLanches()) {
+        precoPromocao = precoPromocao.add(lanche.getPrecoLanche());
+      }
+
+      if (promocao.getDescontoPromocao() != null) {
+        BigDecimal descontoDecimal = precoPromocao.multiply(BigDecimal.valueOf(promocao.getDescontoPromocao()))
+            .divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP);
+
+        precoPromocao = precoPromocao.subtract(descontoDecimal);
+      }
+    } else {
+      precoPromocao = promocao.getPrecoPromocao();
+
+      if (promocao.getDescontoPromocao() != null) {
+        BigDecimal descontoDecimal = precoPromocao.multiply(BigDecimal.valueOf(promocao.getDescontoPromocao()))
+            .divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP);
+
+        precoPromocao = precoPromocao.subtract(descontoDecimal);
+      }
+    }
+
+    promocao.setPrecoPromocao(precoPromocao.setScale(2, RoundingMode.HALF_UP));
 
     promocaoEncontrada.setNomePromocao(promocao.getNomePromocao());
     promocaoEncontrada.setDescricaoPromocao(promocao.getDescricaoPromocao());
