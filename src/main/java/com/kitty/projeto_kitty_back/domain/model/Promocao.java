@@ -26,7 +26,7 @@ public class Promocao {
   private Long idPromocao;
 
   @NotBlank
-  @Column(name = "nome_promocao", nullable = false, length = 30, unique = true)
+  @Column(name = "nome_promocao", nullable = false, length = 100, unique = true)
   private String nomePromocao;
 
   @NotBlank
@@ -37,8 +37,7 @@ public class Promocao {
   @Column(name = "preco_promocao", nullable = false, precision = 6, scale = 2, unique = false)
   private BigDecimal precoPromocao;
 
-  @NotNull
-  @Column(name = "desconto_promocao", nullable = false, unique = false)
+  @Column(name = "desconto_promocao", nullable = true, unique = false)
   private Integer descontoPromocao;
 
   @ManyToMany
@@ -49,7 +48,7 @@ public class Promocao {
   }
 
   public Promocao(Long idPromocao, @NotBlank String nomePromocao, @NotBlank String descricaoPromocao,
-      @NotBlank BigDecimal precoPromocao, @NotNull Integer descontoPromocao, List<Lanche> lanches) {
+      @NotBlank BigDecimal precoPromocao, Integer descontoPromocao, List<Lanche> lanches) {
     this.idPromocao = idPromocao;
     this.nomePromocao = nomePromocao;
     this.descricaoPromocao = descricaoPromocao;
