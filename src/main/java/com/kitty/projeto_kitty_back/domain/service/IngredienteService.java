@@ -49,6 +49,11 @@ public class IngredienteService {
       throw new IngredienteException("Já existe um ingrediente com o nome: " + ingrediente.getNomeIngrediente());
     }
 
+    if (ingrediente.getPrecoIngrediente() == null
+        || ingrediente.getPrecoIngrediente().compareTo(BigDecimal.ZERO) <= 0) {
+      throw new IngredienteException("O preço do ingrediente deve ser maior que zero.");
+    }
+
     ingredienteEncontrado.setNomeIngrediente(ingrediente.getNomeIngrediente());
     ingredienteEncontrado.setPrecoIngrediente(ingrediente.getPrecoIngrediente());
 
