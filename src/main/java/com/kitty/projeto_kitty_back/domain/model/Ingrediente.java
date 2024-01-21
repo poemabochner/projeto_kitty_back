@@ -25,7 +25,7 @@ public class Ingrediente {
   private String nomeIngrediente;
 
   @NotBlank
-  @Column(name = "preco_ingrediete", nullable = false, precision = 6, scale = 2, unique = false)
+  @Column(name = "preco_ingrediente", nullable = false, precision = 6, scale = 2, unique = false)
   private BigDecimal precoIngrediente;
 
   public Ingrediente() {
