@@ -29,7 +29,7 @@ public class IngredienteService {
 
   }
 
-  public Ingrediente criaIngrediente(Ingrediente ingrediente) {
+  public Ingrediente cadastraIngrediente(Ingrediente ingrediente) {
     if (ingredienteRepository.existsByNomeIngrediente(ingrediente.getNomeIngrediente())) {
       throw new IngredienteException(
           "Já existe um ingrediente com o nome: " + ingrediente.getNomeIngrediente());

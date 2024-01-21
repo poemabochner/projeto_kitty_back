@@ -30,7 +30,7 @@ public class PromocaoService {
     return promocaoEncontrada.get();
   }
 
-  public Promocao criaPromocao(Promocao promocao) {
+  public Promocao cadastraPromocao(Promocao promocao) {
     return promocaoRepository.save(promocao);
   }
 
