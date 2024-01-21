@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.kitty.projeto_kitty_back.domain.model.Ingrediente;
 import com.kitty.projeto_kitty_back.domain.repository.IngredienteRepository;
 
+@Service
 public class IngredienteService {
   @Autowired
   private IngredienteRepository ingredienteRepository;
@@ -19,10 +21,12 @@ public class IngredienteService {
   }
 
   public Ingrediente buscaPorId(Long id) {
-    Optional<Ingrediente> ingredienteOptional = ingredienteRepository.findById(id);
+    Optional<Ingrediente> ingredienteEncontrado = ingredienteRepository.findById(id);
+    if (ingredienteEncontrado.isEmpty()) {
+      throw new IngredienteException("Não foi possível encontrar o ingrediente com id " + id + ".");
+    }
+    return ingredienteEncontrado.get();
 
-    return ingredienteOptional
-        .orElseThrow(() -> new IngredienteException("Ingrediente não encontrado com o ID: " + id));
   }
 
   public Ingrediente criaIngrediente(Ingrediente ingrediente) {
