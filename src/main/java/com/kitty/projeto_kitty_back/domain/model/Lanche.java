@@ -25,7 +25,7 @@ public class Lanche {
   private Long idLanche;
 
   @NotBlank
-  @Column(name = "nome_lanche", nullable = false, length = 30, unique = true)
+  @Column(name = "nome_lanche", nullable = false, length = 100, unique = true)
   private String nomeLanche;
 
   @NotBlank
