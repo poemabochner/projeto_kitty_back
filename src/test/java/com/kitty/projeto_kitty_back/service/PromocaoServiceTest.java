@@ -56,7 +56,7 @@ class PromocaoServiceTest {
     }
 
     @Test
-    void testCadastraPromocaoComDescontoESemPreco() {
+    void testaCadastraPromocaoComDescontoESemPreco() {
         Lanche lanche1 = new Lanche(1L, "Lanche1", "Descrição1", new BigDecimal("10.00"), new ArrayList<>());
         Lanche lanche2 = new Lanche(2L, "Lanche2", "Descrição2", new BigDecimal("15.00"), new ArrayList<>());
         List<Lanche> lanches = List.of(lanche1, lanche2);
@@ -75,7 +75,7 @@ class PromocaoServiceTest {
     }
 
     @Test
-    void testCadastraPromocaoSemDescontoEComPreco() {
+    void testaCadastraPromocaoSemDescontoEComPreco() {
         Lanche lanche1 = new Lanche(1L, "Lanche1", "Descrição1", new BigDecimal("10.00"), new ArrayList<>());
         Lanche lanche2 = new Lanche(2L, "Lanche2", "Descrição2", new BigDecimal("15.00"), new ArrayList<>());
         List<Lanche> lanches = List.of(lanche1, lanche2);
@@ -94,7 +94,7 @@ class PromocaoServiceTest {
     }
 
     @Test
-    void testCadastraPromocaoComDescontoEComPreco() {
+    void testaCadastraPromocaoComDescontoEComPreco() {
         Lanche lanche1 = new Lanche(1L, "Lanche1", "Descrição1", new BigDecimal("10.00"), new ArrayList<>());
         Lanche lanche2 = new Lanche(2L, "Lanche2", "Descrição2", new BigDecimal("15.00"), new ArrayList<>());
         List<Lanche> lanches = List.of(lanche1, lanche2);
